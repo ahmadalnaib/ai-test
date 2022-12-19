@@ -13,8 +13,14 @@
     <form action="{{route('resume.store')}}" method="post">
       @csrf
       <div class="mb-3">
-       
-        <input name="resume" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Write Web Developer, ">
+       <input type="text" name="name" placeholder="Name" class="form-control mb-2">
+       <input type="text" name="city" placeholder="city" class="form-control mb-2">
+       <select name="resume" id="" class="form-control">
+        <option value="">Choose a major </option>
+        <option value="web developer">Web Devloper</option>
+        <option value="Frontend">Frontend</option>
+        <option value="Backend">Backend</option>
+       </select>
       
         <div id="emailHelp" class="form-text">We'll fuck the AI.</div>
       </div>
@@ -25,9 +31,11 @@
   <div class="container mt-5">
     @isset($outputText)
        {{-- <p style="white-space: pre-line">{{$outputText}}</p> --}}
-       <textarea class="form-control"  id="" cols="30" rows="10">
-        {{$outputText}}
-       </textarea>
+      <p class="text-danger" style="white-space: pre-line">
+
+        {!! $outputText !!}
+      </p>
+     
     @endisset 
     <a class="btn btn-primary mt-5" href="{{ URL::to('/ai-resume/pdf') }}">Export to PDF</a>
   </div>

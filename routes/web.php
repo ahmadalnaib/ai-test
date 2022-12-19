@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AiTwoController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\EditResumeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,4 @@ Route::post('/ai-two',[AiTwoController::class,'generateimage'])->name('aitwo.gen
 // resume
 Route::get('/ai-resume',[ResumeController::class,'index'])->name('resume.index');
 Route::post('/ai-resume',[ResumeController::class,'store'])->name('resume.store');
-Route::get('/ai-resume/pdf', [ResumeController::class, 'createPDF']);
+Route::get('/ai-resume/pdf', [EditResumeController::class, 'createPDF']);

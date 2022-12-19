@@ -20,11 +20,14 @@ class ResumeController extends Controller
     public function store(Request $request)
     {
         $resume=$request->resume;
+        $name=$request->name;
+        $city=$request->city;
+       
      
 
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
-        $prompt="Write resume for" . $resume ;
+        $prompt="Write professional resume for" .$name. "He live in" .$city . "and he". $resume ;
 
         $openAiOutput = $open_ai->completion([
             'model' => 'text-davinci-003',
@@ -36,9 +39,9 @@ class ResumeController extends Controller
         ]);
         
         
+        // var_dump($openAiOutput);
         $output=json_decode($openAiOutput,true);
         $outputText=$output['choices'][0]['text'];
-        //   var_dump($openAiOutput);
        Resume::create([
        "res"=>$output['choices'][0]['text'],
        ]);
@@ -48,14 +51,4 @@ class ResumeController extends Controller
     }
 
   
-    public function createPDF() {
-        // retreive all records from db
-        $data = Resume::latest()->first();
-        
-        // share data to view
-        view()->share('resume.show',$data);
-        $pdf = PDF::loadView('resume.show',compact('data'));
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
-      }
 }
